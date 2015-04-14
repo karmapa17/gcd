@@ -14,4 +14,5 @@ steps to reproduce rawdump.txt
     ��	mgul ske'i mdun phyogs/ aol sko/
 
 convert to
-    ཨོལ་བ,མིད་པའི་མདུད་པ།
+    ཨཨོལ་བ,མགུལ་སྐེའི་མདུན་ཕྱོགས།་ཨཨོལ་སྐོ།
+
