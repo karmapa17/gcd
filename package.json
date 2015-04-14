@@ -1,0 +1,25 @@
+{
+  "name": "gcd",
+  "version": "1.0.3",
+  "description": "Geshe Chodrak Dictionary\r =======",
+  "main": "index.js",
+  "dependencies": {
+    "ksana-tibetan": "git+https://github.com/ksanaforge/ksana-tibetan.git"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "lint": "jshint **.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karmapa17/gcd"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karmapa17/gcd/issues"
+  },
+  "homepage": "https://github.com/karmapa17/gcd"
+}
