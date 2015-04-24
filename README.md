@@ -2,7 +2,7 @@ Geshe Chodrak Dictionary
 ========================
 
 steps to reproduce rawdump.txt
-
+	install gcdsetup.exe  password:  !7gcd6open9*
     download and install autohotkey
     modify rawdump.ahk line 17 the set the target filename
     run script rawdump.ahk
