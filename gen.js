@@ -1,51 +1,35 @@
-var fs=require("fs");      
-var rt=fs.readFileSync("./rawdump.txt","utf8");
-var rows=rt.split(/\n/);
-var tibetan=require("ksana-tibetan").wylie;
+var arr=require("fs").readFileSync("rawdump.txt","utf8").split(/\r?\n/);
+var fromWylie=require("tibetan").wylie.fromWylie;
 
+var out=[],idx=0,entry="",def="",count=0;
+while (idx<arr.length) {
+	var line=arr[idx++];
+	if (idx<213) continue;
+	if (line[0]==="=" && line[line.length-1]=="=") {
+		if (entry) {
+			out.push([fromWylie(entry),fromWylie(def.substr(0,def.length-2))]);
+			def="";
+			count=0;
+		}
+		entry=line.substring(2,line.length-2);  //remove leading and tailing ==
+		idx++;    //skip the extra line with many ????
+	} else {
+//		if (count>1) console.log("more than one line",idx)
+		count++;
+		def+=line.replace("��	","")+"\\n";
+	}
+};
 
-    var posarr=[];
-   // var errsense=[];
-     for(var i=212;i<rows.length;i++)
-     {
-     	if(rows[i].search(/==/g)!=-1)  //有等號
-         posarr.push(i); // console.log(i+":"+rows[i]);
-     }
+out.push([fromWylie(entry),fromWylie(def.substr(0,def.length-2))]);
+out.sort();
 
-     var j=0;
-     while(j<posarr.length)
-     {
-     	var entries="",sense="";
-        
-        try{
-     	   entries=rows[posarr[j]].match(/(==[^=]+==)/g).toString().replace(/=/g,""); 
-            
-            for(var k=posarr[j]+2;k<posarr[j+1];k++)
-            {
-              if(posarr[j+1]-k>1)
-              {
-                // if(rows[k].search(/empty/g)!=-1)
-                //     errsense.push(k+1);
-                sense += rows[k].match(/\w.*\S/g).toString()+"\n";
-                } 
-              else
-              {                 
-                // if(rows[k].search(/empty/g)!=-1)
-                //     errsense.push(k+1); //印出來原檔列數+1: 較好找
-               sense += rows[k].match(/\w.*\S/g).toString();
-              }
-            }
-
-
-        }catch(e){
-           console.log((posarr[j]+1)+e);  //印出來原檔列數+1: 較好找
-        }
-
-         // console.log(entries+","+sense);
-        console.log((posarr[j]+1)+ tibetan.fromWylie(entries+","+sense));         
-         // console.log((posarr[j]+1)+ tibetan.fromWylie(entries+","+sense));   //印出來原檔列數+1: 較好找
-
-        j=j+1;
-     }
-
-//console.log(errsense);
+var batch=Math.floor(out.length/3000);
+var lst=[];
+for (var i=0;i<batch+1;i++) {
+	var o=out.slice(i*3000,i*3000+3000).join("\n");
+	var fn="gcd"+(i+1)+".csv";
+	lst.push(fn);
+	require("fs").writeFileSync(fn,o,"utf8");	
+}
+console.log("batch",batch)
+require("fs").writeFileSync("gcd.lst",lst.join("\n"),"utf8");
