@@ -4,7 +4,7 @@
   "description": "Geshe Chodrak Dictionary\r =======",
   "main": "index.js",
   "dependencies": {
-    "ksana-tibetan": "git+https://github.com/ksanaforge/ksana-tibetan.git"
+    "tibetan": "git+https://github.com/ksanaforge/tibetan.git"
   },
   "devDependencies": {
   },
