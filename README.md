@@ -17,3 +17,8 @@ steps to reproduce rawdump.txt
 convert to
     ཨཨོལ་བ,མགུལ་སྐེའི་མདུན་ཕྱོགས།་ཨཨོལ་སྐོ།
 
+
+create KDB
+
+    node gen
+    ks mkdb gcd
